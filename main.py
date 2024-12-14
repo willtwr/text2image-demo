@@ -26,7 +26,7 @@ def delete_chat_history():
 
 
 # Initialize Stable Diffusion 3.5 (Quantized to reduce VRAM requirement)
-model_id = "stabilityai/stable-diffusion-3.5-large"
+model_id = "stabilityai/stable-diffusion-3.5-medium"
 nf4_config = BitsAndBytesConfig(
     load_in_4bit=True,
     bnb_4bit_quant_type="nf4",
@@ -86,6 +86,7 @@ if prompt := st.chat_input("User prompt here?"):
         guidance_scale=3.5,
     ).images[0]
 
+    image = image.cpu()
     with st.chat_message("assistant"):
         response = st.image(image)
 
