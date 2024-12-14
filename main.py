@@ -1,49 +1,34 @@
-import time
-import random
 import streamlit as st
-
 import torch
 from diffusers import StableDiffusion3Pipeline, BitsAndBytesConfig, SD3Transformer2DModel
 
 
-# Streamed response emulator
-def response_generator():
-    response = random.choice(
-        [
-            "Hello there! How can I assist you today?",
-            "Hi, human! Is there anything I can help you with?",
-            "Do you need help?",
-        ]
-    )
-    for word in response.split():
-        yield word + " "
-        time.sleep(0.05)
-
-
-# Clear chat history
-def delete_chat_history():
-    st.session_state.messages = []
-
-
 # Initialize Stable Diffusion 3.5 (Quantized to reduce VRAM requirement)
-model_id = "stabilityai/stable-diffusion-3.5-medium"
-nf4_config = BitsAndBytesConfig(
-    load_in_4bit=True,
-    bnb_4bit_quant_type="nf4",
-    bnb_4bit_compute_dtype=torch.bfloat16
-)
-model_nf4 = SD3Transformer2DModel.from_pretrained(
-    model_id,
-    subfolder="transformer",
-    quantization_config=nf4_config,
-    torch_dtype=torch.bfloat16
-)
-pipe = StableDiffusion3Pipeline.from_pretrained(
-    model_id, 
-    transformer=model_nf4,
-    torch_dtype=torch.bfloat16
-)
-pipe = pipe.to("cuda")
+@st.cache_resource(max_entries=1)
+def get_pipeline():
+    model_id = "stabilityai/stable-diffusion-3.5-medium"
+    nf4_config = BitsAndBytesConfig(
+        load_in_4bit=True,
+        bnb_4bit_quant_type="nf4",
+        bnb_4bit_compute_dtype=torch.bfloat16
+    )
+    model_nf4 = SD3Transformer2DModel.from_pretrained(
+        model_id,
+        subfolder="transformer",
+        quantization_config=nf4_config,
+        torch_dtype=torch.bfloat16
+    )
+    pipe = StableDiffusion3Pipeline.from_pretrained(
+        model_id, 
+        transformer=model_nf4,
+        torch_dtype=torch.bfloat16
+    )
+    pipe = pipe.to("cuda")
+    return pipe
+
+
+# Construct stable diffusion pipeline
+pipe = get_pipeline()
 
 # Set Title
 st.title("Stable Diffusion Demo")
@@ -51,6 +36,21 @@ st.title("Stable Diffusion Demo")
 # Initialize chat history
 if "messages" not in st.session_state:
     st.session_state.messages = []
+
+# Initiate text input disable
+if "disabled" not in st.session_state:
+    st.session_state.disabled = False
+
+
+# Clear chat history
+def delete_chat_history():
+    st.session_state.messages = []
+
+
+# Disable text input
+def disable():
+    st.session_state.disabled = True
+
 
 # Display chat history on app rerun
 for message in st.session_state.messages:
@@ -74,7 +74,7 @@ if len(st.session_state.messages) == 0:
         st.session_state.messages.append({"role": "assistant", "content": prompt})
 
 # User input
-if prompt := st.chat_input("User prompt here?"):
+if prompt := st.chat_input("User prompt here", disabled=st.session_state.disabled, on_submit=disable):
     with st.chat_message("user"):
         st.markdown(prompt)
 
@@ -90,3 +90,5 @@ if prompt := st.chat_input("User prompt here?"):
         response = st.image(image)
 
     st.session_state.messages.append({"role": "assistant", "content": image})
+    st.session_state.disabled = False
+    st.rerun()
