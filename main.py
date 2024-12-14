@@ -86,7 +86,6 @@ if prompt := st.chat_input("User prompt here?"):
         guidance_scale=3.5,
     ).images[0]
 
-    image = image.cpu()
     with st.chat_message("assistant"):
         response = st.image(image)
 
