@@ -1,4 +1,4 @@
-# Stable Diffusion Demo
+# Text to Image Demo
 This repo contains demo for generating image based on user prompt.
 - Model: stable diffusion 3.5 medium
 - UI: Streamlit
