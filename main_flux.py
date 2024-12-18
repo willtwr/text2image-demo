@@ -1,12 +1,32 @@
 import streamlit as st
 import torch
 from diffusers import FluxPipeline
+from model import T5EncoderModel, FluxTransformer2DModel
 
 
 # Initialize Flux.1[dev]
 @st.cache_resource(max_entries=1)
 def get_pipeline():
-    pipe = FluxPipeline.from_pretrained("black-forest-labs/FLUX.1-dev", torch_dtype=torch.bfloat16)
+    text_encoder_2 = T5EncoderModel.from_pretrained(
+        "HighCWu/FLUX.1-dev-4bit",
+        subfolder="text_encoder_2",
+        torch_dtype=torch.bfloat16,
+        # hqq_4bit_compute_dtype=torch.float32,
+    )
+    transformer = FluxTransformer2DModel.from_pretrained(
+        "HighCWu/FLUX.1-dev-4bit",
+        subfolder="transformer",
+        torch_dtype=torch.bfloat16,
+    )
+    pipe = FluxPipeline.from_pretrained(
+        "black-forest-labs/FLUX.1-dev",
+        text_encoder_2=text_encoder_2,
+        transformer=transformer,
+        torch_dtype=torch.bfloat16,
+    )
+    # pipe = FluxPipeline.from_pretrained("takara-ai/Flux1-Schnell-Quantized", 
+    #                                     torch_dtype=torch.bfloat16)
+    pipe.enable_model_cpu_offload()
     return pipe
 
 
@@ -14,7 +34,7 @@ def get_pipeline():
 pipe = get_pipeline()
 
 # Set Title
-st.title("Stable Diffusion Demo")
+st.title("Flux.1 Demo")
 
 # Initialize chat history
 if "messages" not in st.session_state:
@@ -68,7 +88,8 @@ if prompt := st.chat_input("User prompt here", disabled=st.session_state.disable
         height=1024,
         width=1024,
         guidance_scale=3.5,
-        num_inference_steps=50,
+        output_type="pil",
+        num_inference_steps=16,
         max_sequence_length=512,
         generator=torch.Generator("cpu").manual_seed(0)
     ).images[0]

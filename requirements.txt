@@ -3,3 +3,4 @@ diffusers==0.31.0
 transformers[torch]==4.47.0
 bitsandbytes==0.45.0
 sentencepiece==0.2.0
+hqq @ git+https://github.com/mobiusml/hqq@306e30d
