@@ -1,6 +1,4 @@
-import replicate 
 from nicegui import ui
-from nicegui.events import UploadEventArguments
 
 
 ui.dark_mode()
