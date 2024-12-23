@@ -1,8 +1,13 @@
-# Text to Image Demo
-This repo contains demo for generating image based on user prompt.
-- Model: stable diffusion 3.5 medium
-- UI: Streamlit
+# Text to Image Demo (work in progress)
+This repo contains demo for generating image based on user prompt. 
+- Models: Stable Diffusion and Flux.1
+- UI: Streamlit (Changing to NiceGUI)
 - Require NVIDIA GPU
+
+# TODO:
+- [ ] Refactor text-to-image models to factory approach.
+- [ ] Implement Flux.1 that can be run with 12GB VRAM.
+- [ ] Hook text-to-image model to the new interface built with NiceGUI.
 
 ## How to install
 1. Install [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)
