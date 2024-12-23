@@ -6,7 +6,8 @@ This repo contains demo for generating image based on user prompt.
 
 # TODO:
 - [ ] Refactor text-to-image models to factory approach.
-- [ ] Implement Flux.1 that can be run with 12GB VRAM.
+- [ ] To explore Auto1111sdk.
+- [ ] Implement Flux.1 that can run on 12GB VRAM.
 - [ ] Hook text-to-image model to the new interface built with NiceGUI.
 
 ## How to install
