@@ -1,5 +1,6 @@
 from .stable_diffusion import StableDiffusion
 from .stable_diffusion_art import StableDiffusionArt
+from .flux1 import Flux1
 
 
 def get_t2i_model(model_name: str):
@@ -9,5 +10,7 @@ def get_t2i_model(model_name: str):
             return StableDiffusion
         case "sdart":
             return StableDiffusionArt
+        case "flux1":
+            return Flux1
         case _:
             raise ValueError(f"Unrecognised LLM provider: {model_name}")

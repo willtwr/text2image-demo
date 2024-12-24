@@ -6,7 +6,7 @@ This repo contains demo for generating image based on user prompt.
 
 # TODO:
 - [x] Implement Stable Diffusion.
-- [ ] Implement Flux.1 that can run on 12GB VRAM.
+- [x] Implement Flux.1.
 - [ ] Refactor text-to-image models to factory approach.
 - [ ] Add model switch.
 - [ ] To explore Auto1111sdk.
@@ -32,9 +32,11 @@ This repo contains demo for generating image based on user prompt.
     <tr>
         <td>Stable Diffusion 3.5 Large Turbo Quantized (StabilityAI)</td>
         <td>Stable Diffusion 3.5 Medium Turbo (TensorArt)</td>
+        <td>Flux.1 Schnell Quantized (Black Forest Labs)</td>
     </tr>
     <tr>
         <td><img src="./assets/sd3.5-sample1.png"></td>
         <td><img src="./assets/sd3.5art-sample1.png"></td>
+        <td><img src="./assets/flux1-schnell-sample1.png"></td>
     </tf>
 </table>

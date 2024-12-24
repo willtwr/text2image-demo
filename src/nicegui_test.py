@@ -1,13 +1,15 @@
 from nicegui import ui, run, app
 from contextlib import contextmanager
 # from models.text2image.stable_diffusion_art import StableDiffusionArt
-from models.text2image.stable_diffusion import StableDiffusion
+# from models.text2image.stable_diffusion import StableDiffusion
+from models.text2image.flux1 import Flux1
 
 
 def init_model() -> None:
     global model
     # model = StableDiffusionArt()
-    model = StableDiffusion()
+    # model = StableDiffusion()
+    model = Flux1()
 
 
 @contextmanager
