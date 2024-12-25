@@ -37,7 +37,6 @@ class StableDiffusion(BaseT2IModel):
             prompt,
             num_inference_steps=4,
             guidance_scale=0.0,
-            # max_sequence_length=512,
             height=768,
             width=768 
         ).images[0]

@@ -7,8 +7,9 @@ This repo contains demo for generating image based on user prompt.
 # TODO:
 - [x] Implement Stable Diffusion.
 - [x] Implement Flux.1.
-- [ ] Refactor text-to-image models to factory approach.
-- [ ] Add model switch.
+- [x] Refactor text-to-image models to factory approach.
+- [x] Add model switch.
+- [ ] Explore storage in NiceGUI.
 - [ ] To explore Auto1111sdk.
 
 ## How to install
