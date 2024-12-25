@@ -1,3 +1,4 @@
+"""Stable Diffusion 3.5 Medium Turbo from TensorArt"""
 from .base_model import BaseT2IModel
 import torch
 from diffusers import StableDiffusion3Pipeline
@@ -10,9 +11,10 @@ class StableDiffusionArt(BaseT2IModel):
     def _init_model(self):
         """Initialize model"""
         model_id = "tensorart/stable-diffusion-3.5-medium-turbo"
+        dtype = torch.float16
         pipe = StableDiffusion3Pipeline.from_pretrained(
-            model_id, 
-            torch_dtype=torch.float16
+            model_id,
+            torch_dtype=dtype
         )
         pipe = pipe.to("cuda")
         self.pipe = pipe

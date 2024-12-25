@@ -6,7 +6,7 @@ This repo contains demo for generating image based on user prompt. It runs model
 - [x] Implement Flux.1.
 - [x] Refactor text-to-image models to factory approach.
 - [x] Add model switch.
-- [ ] Explore storage in NiceGUI.
+- [ ] Explore storage in NiceGUI to control session states.
 - [ ] To explore Auto1111sdk.
 
 ## How to install
@@ -22,7 +22,7 @@ This repo contains demo for generating image based on user prompt. It runs model
 3. In terminal, after activating `sd` environment, type `huggingface-cli login` and key in the created access token to login.
 
 ## How to run
-1. Run the following command: `PYTORCH_CUDA_ALLOC_CONF=garbage_collection_threshold:0.9,max_split_size_mb:512 streamlit run main.py`
+1. Run the following command: `python src/nicegui_test.py`
 2. Open the Local URL in a browser.
 
 ## Example

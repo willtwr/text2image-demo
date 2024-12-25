@@ -1,9 +1,8 @@
 """Flux.1 implementation"""
-
 from .base_model import BaseT2IModel
 import torch
-from diffusers import FluxPipeline, FluxTransformer2DModel
-from transformers import T5EncoderModel, BitsAndBytesConfig
+from diffusers import FluxPipeline, FluxTransformer2DModel, BitsAndBytesConfig
+from transformers import T5EncoderModel
 
 
 class Flux1(BaseT2IModel):
@@ -14,12 +13,10 @@ class Flux1(BaseT2IModel):
         """Initialize model"""
         bfl_repo = "black-forest-labs/FLUX.1-schnell"
         dtype = torch.bfloat16
-        quantization_config = BitsAndBytesConfig(load_in_8bit=True)
-        text_encoder_2 = T5EncoderModel.from_pretrained(
-            bfl_repo, 
-            subfolder="text_encoder_2", 
-            quantization_config=quantization_config, 
-            torch_dtype=dtype
+        quantization_config = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_quant_type="nf4",
+            bnb_4bit_compute_dtype=dtype
         )
         transformer = FluxTransformer2DModel.from_pretrained(
             bfl_repo, 
@@ -27,14 +24,13 @@ class Flux1(BaseT2IModel):
             quantization_config=quantization_config, 
             torch_dtype=dtype
         )
+        t5_nf4 = T5EncoderModel.from_pretrained("diffusers/t5-nf4", torch_dtype=dtype)
         pipe = FluxPipeline.from_pretrained(
             bfl_repo,
-            text_encoder_2=None,
-            transformer=None,
-            torch_dtype=torch.bfloat16
+            text_encoder_2=t5_nf4,
+            transformer=transformer,
+            torch_dtype=dtype
         )
-        pipe.text_encoder_2 = text_encoder_2
-        pipe.transformer = transformer
         pipe = pipe.to("cuda")
         self.pipe = pipe
 
@@ -43,8 +39,7 @@ class Flux1(BaseT2IModel):
             prompt,
             width=768,
             height=768,
-            guidance_scale=3.5,
-            num_inference_steps=4,
-            generator=torch.Generator("cpu").manual_seed(0)
+            guidance_scale=2.0,
+            num_inference_steps=4
         ).images[0]
         return image
