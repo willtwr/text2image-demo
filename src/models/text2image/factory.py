@@ -4,9 +4,6 @@ from .flux1 import Flux1
 
 
 class T2IFactory:
-    def __init__(self):
-        pass
-
     def _models_list(self):
         return {
             'Flux.1': Flux1,

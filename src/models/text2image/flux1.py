@@ -8,6 +8,10 @@ from transformers import T5EncoderModel, BitsAndBytesConfig
 
 class Flux1(BaseT2IModel):
     def __init__(self):
+        self._init_model()
+
+    def _init_model(self):
+        """Initialize model"""
         bfl_repo = "black-forest-labs/FLUX.1-schnell"
         dtype = torch.bfloat16
         quantization_config = BitsAndBytesConfig(load_in_8bit=True)

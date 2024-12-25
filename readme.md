@@ -1,8 +1,5 @@
 # Text to Image Demo (work in progress)
-This repo contains demo for generating image based on user prompt. 
-- Models: Stable Diffusion and Flux.1
-- UI: NiceGUI
-- Require NVIDIA GPU
+This repo contains demo for generating image based on user prompt. It runs model locally for the sake of PoC and is not suitable for production. Require NVIDIA GPU to run.
 
 # TODO:
 - [x] Implement Stable Diffusion.
