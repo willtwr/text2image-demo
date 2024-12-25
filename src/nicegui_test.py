@@ -1,5 +1,3 @@
-import gc
-import torch
 from nicegui import ui, run
 from contextlib import contextmanager
 from models.text2image.factory import T2IFactory
