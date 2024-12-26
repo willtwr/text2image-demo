@@ -1,12 +1,12 @@
-# Text to Image Demo (work in progress)
+# Text to Image Demo
 This repo contains demo for generating image based on user prompt. It runs model locally for the sake of PoC and is not suitable for production. Require NVIDIA GPU to run.
 
 # TODO:
-- [x] Implement Stable Diffusion.
-- [x] Implement Flux.1.
+- [x] Implement quantized Stable Diffusion 3.5.
+- [x] Implement quantized Flux.1 Schnell.
 - [x] Refactor text-to-image models to factory approach.
 - [x] Add model switch.
-- [ ] Explore storage in NiceGUI to control session states.
+- [x] Implement NiceGUI ui.storage to store session states.
 - [ ] To explore Auto1111sdk.
 
 ## How to install
@@ -16,14 +16,17 @@ This repo contains demo for generating image based on user prompt. It runs model
 4. Install [Pytorch](https://pytorch.org/get-started/locally/)
 5. Install the required libraries: `pip install -r requirements.txt`
 
-## Huggingface Access Token
+## Huggingface Access Token & Model Registration
 1. Follow [this](https://huggingface.co/docs/hub/en/security-tokens) to create access token.
-2. Go to [this](https://huggingface.co/stabilityai/stable-diffusion-3.5-medium) to register to use the model.
+2. Visit the following links to register:
+    - [Flux.1 Schnell](https://huggingface.co/black-forest-labs/FLUX.1-schnell)
+    - [Stable Diffusion 3.5 Large Turbo](https://huggingface.co/stabilityai/stable-diffusion-3.5-large-turbo)
+    - [Stable Diffusion 3.5 Medium Turbo TensorArt](https://huggingface.co/tensorart/stable-diffusion-3.5-medium-turbo)
 3. In terminal, after activating `sd` environment, type `huggingface-cli login` and key in the created access token to login.
 
 ## How to run
-1. Run the following command: `python src/nicegui_test.py`
-2. Open the Local URL in a browser.
+1. Run the following command: `python src/main.py`
+2. Open the Local URL (default: http://localhost:8080/) in a browser.
 
 ## Example
 <table>
