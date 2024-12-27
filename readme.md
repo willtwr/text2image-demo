@@ -1,7 +1,7 @@
 # Text to Image Demo
 This repo contains demo for generating image based on user prompt. It runs model locally for the sake of PoC and is not suitable for production. Require NVIDIA GPU to run.
 
-# TODO:
+## TODO:
 - [x] Implement quantized Stable Diffusion 3.5.
 - [x] Implement quantized Flux.1 Schnell.
 - [x] Implement factory pattern to handle models.
