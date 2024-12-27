@@ -4,7 +4,7 @@ from models.text2image.factory import T2IFactory
 
 
 t2ifactory = T2IFactory()
-t2imodel = None  # Not app.storage here to avoid accidentally load multiple models into my potato GPU.
+t2imodel = None  # Not implementing app.storage here to avoid accidentally load multiple models into my potato GPU.
 
 
 @contextmanager

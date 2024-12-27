@@ -4,10 +4,12 @@ This repo contains demo for generating image based on user prompt. It runs model
 # TODO:
 - [x] Implement quantized Stable Diffusion 3.5.
 - [x] Implement quantized Flux.1 Schnell.
-- [x] Refactor text-to-image models to factory approach.
-- [x] Add model switch.
+- [x] Implement factory pattern to handle models.
+- [x] Add model switching feature.
 - [x] Implement NiceGUI ui.storage to store session states.
-- [ ] To explore Auto1111sdk.
+- [ ] Add brush and inpainting features.
+- [ ] Add models outputs comparison feature.
+- [ ] To explore Auto1111sdk. (Dec 27, 2024: Only support Stable Diffusion as of the date, so won't implement soon.)
 
 ## How to install
 1. Install [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)
