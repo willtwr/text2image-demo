@@ -1,7 +1,9 @@
 from nicegui import ui, run, app, events
 from contextlib import contextmanager
 from models.text2image.factory import T2IFactory
-import base64
+import os
+import io
+from PIL import Image
 from events.mouse_events import mouse_draw_handler
 
 
@@ -89,8 +91,14 @@ def main():
     app.storage.user['current_model'] = None
 
     def upload_handler(e: events.UploadEventArguments):
-        b64_bytes = base64.b64encode(e.content.read())
-        img_holder.set_source(f'data:{e.type};base64,{b64_bytes.decode()}')
+        tempfolder = "./tempfolder"
+        if not os.path.exists(tempfolder):
+            os.mkdir(tempfolder)
+
+        imgpth = os.path.join(tempfolder, 'tempimg.png')
+        img = Image.open(io.BytesIO(e.content.read()))
+        img.save(imgpth)
+        img_holder.set_source(imgpth)
 
     with ui.column().classes('w-full items-center'):
         ui.label("Text to Image Demo").style('color: #6E93D6; font-size: 300%; font-weight: 300')
@@ -123,11 +131,8 @@ def main():
                 on_mouse=mouse_draw_handler,
                 events=['mousedown', 'mouseup', 'mousemove'],
                 cross=False
-            ).props('id=brushimagecanvas')
+            )
             img_holder.is_drawing = False
-            # img_holder.on('mouse', js_handler=open('./src/js/mouse_event.js', 'r').read())
-            # img_holder.javascript = ui.run_javascript(open('./src/js/mouse_event.js', 'r').read())
-            # ui.add_body_html("""<script src="./src/js/mouse_event.js"></script>""")
 
 
 ui.run(storage_secret="local_secret_key")
