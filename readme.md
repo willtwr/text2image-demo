@@ -7,7 +7,8 @@ This repo contains demo for generating image based on user prompt. It runs model
 - [x] Implement factory pattern to handle models.
 - [x] Add model switching feature.
 - [x] Implement NiceGUI ui.storage to store session states.
-- [ ] Add brush and inpainting features.
+- [ ] Better code modularization.
+- [ ] Add brush and inpainting features. (Added brush feature but seems to have delay. Need further investigation.)
 - [ ] Add models outputs comparison feature.
 - [ ] To explore Auto1111sdk. (Dec 27, 2024: Only support Stable Diffusion as of the date, so won't implement soon.)
 
