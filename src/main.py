@@ -5,6 +5,7 @@ import os
 import io
 from PIL import Image
 from events.mouse_events import mouse_draw_handler
+from utils import create_temp_folder
 
 
 t2ifactory = T2IFactory()
@@ -47,7 +48,7 @@ async def draw_button_clicked(
         draw_button: ui.button, 
         drawing_spinner: ui.spinner,
         img_desc: ui.textarea, 
-        img_holder: ui.image,
+        img_holder: ui.interactive_image,
         draw_notification: ui.label,
         model_selector: ui.select,
         init_model_button: ui.button,
@@ -61,7 +62,12 @@ async def draw_button_clicked(
     init_model_notification.set_visibility(False)
     with disable_when_generating(draw_button, drawing_spinner, img_desc, model_selector, init_model_button):
         image = await run.io_bound(t2imodel, prompt=img_desc.value)
-        img_holder.set_source(image)
+        tempfolder = create_temp_folder()
+        imgpth = os.path.join(tempfolder, 'tempimg.png')
+        image.save(imgpth)
+        img_holder.set_source(imgpth)
+        img_holder.set_content("")
+        img_holder.force_reload()
 
 
 async def init_model_button_clicked(
@@ -91,14 +97,14 @@ def main():
     app.storage.user['current_model'] = None
 
     def upload_handler(e: events.UploadEventArguments):
-        tempfolder = "./tempfolder"
-        if not os.path.exists(tempfolder):
-            os.mkdir(tempfolder)
-
+        tempfolder = create_temp_folder()
         imgpth = os.path.join(tempfolder, 'tempimg.png')
         img = Image.open(io.BytesIO(e.content.read()))
         img.save(imgpth)
+        e.sender.reset()
         img_holder.set_source(imgpth)
+        img_holder.set_content("")
+        img_holder.force_reload()
 
     with ui.column().classes('w-full items-center'):
         ui.label("Text to Image Demo").style('color: #6E93D6; font-size: 300%; font-weight: 300')
@@ -126,7 +132,7 @@ def main():
                 ui.upload(on_upload=upload_handler).props('accept=".png, image/*"')
 
     with ui.column().classes('w-full items-center'):
-        with ui.card().classes('w-full max-w-screen-lg'):
+        with ui.card().classes('w-full max-w-screen-lg items-center'):
             img_holder = ui.interactive_image(
                 on_mouse=mouse_draw_handler,
                 events=['mousedown', 'mouseup', 'mousemove'],
