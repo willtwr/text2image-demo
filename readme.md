@@ -34,6 +34,15 @@ This repo contains demo for generating image based on user prompt. It runs model
 1. Run the following command: `python src/main.py`
 2. Open the Local URL (default: http://localhost:8080/) in a browser.
 
+## How to use
+1. Select "Flux.1" in the top dropdown list and click "INITIALIZE T2I MODEL" button to load the text to image model.
+2. Describe what you want to draw in the text box.
+3. Click "DRAW" button and wait for the image to be generated.
+4. If modification is desired, select "Stable Diffusion 2 Inpaint" in the bottom dropdown list and click "INITIALIZE FILL MODEL" button to load inpainting model.
+5. Brush the image to mask the area you want to modify.
+6. Describe what to add to the area in the text box.
+7. Click "FILL" to apply the modification.
+
 ## Example
 <table>
     <tr>
