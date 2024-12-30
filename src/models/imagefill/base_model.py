@@ -1,9 +1,9 @@
-"""Abstract class for text to image model"""
+"""Abstract class for image fill (inpainting) model"""
 
 from abc import ABC, abstractmethod
 
 
-class BaseT2IModel(ABC):
+class BaseIFModel(ABC):
     @abstractmethod
     def __init__(self):
         raise NotImplementedError

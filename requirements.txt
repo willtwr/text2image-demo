@@ -5,4 +5,5 @@ sentencepiece==0.2.0
 optimum-quanto==0.2.6
 nicegui==2.9.0
 protobuf==5.29.2
+cairosvg==2.7.1
 hqq @ git+https://github.com/mobiusml/hqq@306e30d

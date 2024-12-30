@@ -1,4 +1,4 @@
-"""Stable Diffusion 3.5 Large Turbo"""
+"""Quantized Stable Diffusion 3.5 Large Turbo"""
 from .base_model import BaseT2IModel
 import torch
 from diffusers import StableDiffusion3Pipeline, BitsAndBytesConfig, SD3Transformer2DModel
