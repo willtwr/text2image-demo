@@ -1,7 +1,8 @@
 from nicegui import events
 
 
-def mouse_draw_handler(e: events.MouseEventArguments):
+def mouse_draw_handler(e: events.MouseEventArguments) -> None:
+    """Handler for brushing mask on image with mouse."""
     color = 'Black'
     if e.type == 'mousedown':
         e.sender.is_drawing = True

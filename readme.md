@@ -7,7 +7,7 @@ This repo contains demo for generating image based on user prompt. It runs model
 - [x] Implement factory pattern to handle models.
 - [x] Add model switching feature.
 - [x] Implement NiceGUI ui.storage to store session states.
-- [ ] Better code modularization.
+- [x] Better code modularization.
 - [x] Add brush and inpainting features.
 - [ ] Add models outputs comparison feature.
 - [ ] Use javascript for brush to bring the feature to client side.
